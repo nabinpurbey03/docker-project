@@ -16,12 +16,15 @@ RUN apt-get update \
         curl \
     && rm -rf /var/lib/apt/lists/*
 
+
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh
+
 # Copy requirements first to leverage Docker cache
-COPY requirements.txt .
+COPY pyproject.toml .
 
 # Install Python dependencies
-RUN pip install --no-cache-dir --upgrade pip \
-    && pip install --no-cache-dir -r requirements.txt
+#RUN pip install --no-cache-dir --upgrade pip \
+#    && pip install --no-cache-dir -r requirements.txt
 
 # Copy project files
 COPY . .
@@ -39,4 +42,4 @@ HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
     CMD curl -f http://localhost:8000/ || exit 1
 
 # Run the application
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uv", "run", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
