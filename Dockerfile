@@ -12,7 +12,7 @@ COPY pyproject.toml ./
 COPY main.py models.py database.py ./
 
 # Install dependencies using UV (from pyproject.toml)
-RUN uv sync --frozen
+RUN uv sync
 
 # Expose FastAPI port
 EXPOSE 8000
