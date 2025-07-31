@@ -7,7 +7,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      DATABASE_URL: postgresql+psycopg2://postgres:postgres@db:5432/mydatabase
+      DATABASE_URL: postgresql+psycopg2://postgres:postgres@db:5432/userinfo
     depends_on:
       - db
 
